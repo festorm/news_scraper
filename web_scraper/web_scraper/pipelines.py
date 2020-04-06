@@ -7,14 +7,25 @@
 
 from scrapy.exceptions import DropItem
 
-
 class WebScraperPipeline(object):
+
+    def __init__(self):
+        self.urls_seen = set()
+
     def process_item(self, item, spider):
         url = item["url"][0]
-        if hasattr(spider, "scraped_urls"):
-            if url in spider.scraped_urls:
-                spider.logger.info("Duplicated")
-                raise DropItem()
-            else:
-                spider.scraped_urls.add(url)
-        return item
+
+        if url in self.urls_seen:
+            spider.logger.info(f"Duplicated: {url}")
+            raise DropItem()
+        else:
+            self.urls_seen.add(url)
+            return item
+
+class CheckForTextPipeline(object):
+
+    def process_item(self, item, spider):
+        if item.get("text"):
+            return item
+        else:
+            raise DropItem("Missing text")

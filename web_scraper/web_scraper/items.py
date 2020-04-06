@@ -61,7 +61,7 @@ class WebScraperItem(scrapy.Item):
         output_processor=Join(),
     )
 
-    article_body = scrapy.Field(
+    text = scrapy.Field(
         input_processor=MapCompose(w3lib.html.remove_tags, str.strip, check_not_none),
         output_processor=Join(),
     )

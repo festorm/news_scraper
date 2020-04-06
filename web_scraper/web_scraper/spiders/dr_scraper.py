@@ -7,6 +7,7 @@ from datetime import datetime
 # from datetime import datatime
 
 startpage_links = [
+    "https://www.dr.dk/nyheder",
     "https://www.dr.dk/nyheder/allenyheder/indland",
     "https://www.dr.dk/nyheder/allenyheder/udland",
     "https://www.dr.dk/nyheder/allenyheder/penge",
@@ -55,11 +56,14 @@ class Drspider(scrapy.Spider):
         )
 
     def choose_follow_css(self, response):
-        startpage_follow_css = ".heading-small a::attr(href)"
+        startpage_front_css = ".article-body a::attr(href)"
+        startpage_all_follow_css = ".heading-small a::attr(href)"
         article_follow_css = ".dre-teaser a::attr(href)"
 
+        if response.url == startpage_links[0]:
+            return startpage_front_css
         if response.url in startpage_links:
-            return startpage_follow_css
+            return startpage_all_follow_css
 
         return article_follow_css
 
@@ -108,6 +112,6 @@ class Drspider(scrapy.Spider):
         loader.add_css("title", self.title_css)
         loader.add_css("title_summary", self.title_summary_css)
         loader.add_css("image_caption", self.image_caption_css)
-        loader.add_css("article_body", self.article_body_css)
+        loader.add_css("text", self.article_body_css)
 
         return loader

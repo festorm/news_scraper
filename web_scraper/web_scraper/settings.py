@@ -67,9 +67,10 @@ CONCURRENT_REQUESTS_PER_DOMAIN = 16
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-# ITEM_PIPELINES = {
-#    'web_scraper.pipelines.WebScraperPipeline': 300,
-# }
+ITEM_PIPELINES = {
+   'web_scraper.pipelines.WebScraperPipeline': 300,
+   'web_scraper.pipelines.CheckForTextPipeline': 400,
+}
 
 # Configure Feed export
 # See https://docs.scrapy.org/en/latest/topics/feed-exports.html#topics-feed-exports

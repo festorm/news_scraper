@@ -6,7 +6,7 @@ authors = ["Your Name <you@example.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-scrapy = "^2.0.1"
+scrapy = "^2.6.0"
 w3lib = "^1.21.0"
 pre-commit = "^2.2.0"
 
